@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="rg350test" />
+		<Option pch_mode="0" />
+		<Option compiler="gcwzero" />
+		<MakeCommands>
+			<Build command="" />
+			<CompileFile command="" />
+			<Clean command="" />
+			<DistClean command="" />
+			<AskRebuildNeeded command="" />
+			<SilentBuild command=" &gt; $(CMD_NULL)" />
+		</MakeCommands>
+		<Build>
+			<Target title="GCWZero">
+				<Option output="rg350test.gcw" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/gcwzero" />
+				<Option type="1" />
+				<Option compiler="gcwzero" />
+				<Option use_console_runner="0" />
+				<Option projectResourceIncludeDirsRelation="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_LINUX" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lSDL_mixer -lSDL_ttf -lSDL_image -lfreetype -lvorbisidec -lz -lSDL -lpthread -lshake" />
+				</Linker>
+			</Target>
+		</Build>
+		<VirtualTargets>
+			<Add alias="All" targets="GCWZero;" />
+		</VirtualTargets>
+		<Unit filename="src/main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

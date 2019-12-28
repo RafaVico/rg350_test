@@ -1,0 +1,79 @@
+# depslib dependency file v1.0
+1562881091 source:d:\proyectos\gp2x\_remaster\batiscafo_exp\src\main.cpp
+	<fstream>
+	<vector>
+	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
+	<SDL/SDL_mixer.h>
+	<exp_core.h>
+	<exp_sdl.h>
+	"../inc/language.h"
+
+1562412993 source:d:\proyectos\gp2x\_remaster\batiscafo_exp\src\language.cpp
+	<vector>
+	<string>
+	<fstream>
+	<dirent.h>
+	"../inc/language.h"
+
+1232318810 d:\proyectos\gp2x\_remaster\batiscafo_exp\inc\language.h
+
+1562412993 source:c:\users\rafa\documents\github\bathyscaphe\src\language.cpp
+	<vector>
+	<string>
+	<fstream>
+	<dirent.h>
+	"../inc/language.h"
+
+1232318810 c:\users\rafa\documents\github\bathyscaphe\inc\language.h
+
+1573250635 source:/home/rafa/GitHub/bathyscaphe/src/language.cpp
+	<vector>
+	<string>
+	<fstream>
+	<cstdlib>
+	<dirent.h>
+	"../inc/language.h"
+
+1573076478 /home/rafa/GitHub/bathyscaphe/inc/language.h
+
+1573246678 source:/home/rafa/GitHub/bathyscaphe/src/main.cpp
+	<fstream>
+	<vector>
+	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
+	<SDL/SDL_mixer.h>
+	<exp_core.h>
+	<exp_sdl.h>
+	"../inc/language.h"
+
+1573250635 source:/home/rafa/Dropbox/PROYECTOS/RG350/bathyscaphe/src/language.cpp
+	<vector>
+	<string>
+	<fstream>
+	<cstdlib>
+	<dirent.h>
+	"../inc/language.h"
+
+1573076478 /home/rafa/Dropbox/PROYECTOS/RG350/bathyscaphe/inc/language.h
+
+1573411576 source:/home/rafa/Dropbox/PROYECTOS/RG350/bathyscaphe/src/main.cpp
+	<sys/stat.h>
+	<fstream>
+	<vector>
+	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
+	<SDL/SDL_mixer.h>
+	<exp_core.h>
+	<exp_sdl.h>
+	"../inc/language.h"
+
+1576362423 source:/home/rafa/Dropbox/PROYECTOS/RG350/RG350Test/src/main.cpp
+	<sys/stat.h>
+	<math.h>
+	<shake.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<SDL/SDL_ttf.h>
+	<SDL/SDL_mixer.h>
+
