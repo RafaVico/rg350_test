@@ -27,7 +27,7 @@ endif
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $^ -o $@ $(CFLAGS)
 ifdef DO_STRIP
 	$(STRIP) $@
 endif
