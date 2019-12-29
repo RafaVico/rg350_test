@@ -7,7 +7,7 @@ endif
 
 CC           ?= g++
 STRIP        ?= strip
-TARGET       ?= rg350test.gcw0
+TARGET       ?= rg350test.gcw
 SYSROOT      := $(shell $(CC) --print-sysroot)
 CFLAGS       := $(LIBS) -lSDL_mixer -lSDL_ttf -lSDL_image -lfreetype -lz -lSDL -lpthread -lshake
 SRCDIR       := src
