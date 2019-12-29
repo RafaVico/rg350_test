@@ -77,3 +77,14 @@
 	<SDL/SDL_ttf.h>
 	<SDL/SDL_mixer.h>
 
+1577091083 source:/home/rafa/GitHub___/RG350Test/src/main.cpp
+	<sys/stat.h>
+	<sys/statvfs.h>
+	<math.h>
+	<pthread.h>
+	<shake.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<SDL/SDL_ttf.h>
+	<SDL/SDL_mixer.h>
+
