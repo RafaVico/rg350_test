@@ -153,7 +153,7 @@ const char* msg[6]={
 "Press L1 + X to play a sound.",
 "Last detected key:",
 "Press L2 + R2 to rumble.",
-"Press POWER + L1 to de/activate mouse.",
+"Press POWER + R1 to de/activate mouse.",
 "reading..."
 };
 
@@ -529,7 +529,8 @@ const char* get_keydata(int value)
     if(value==key_val[f])
       return key_table[f];
   }
-  return key_table[17]; // message "Not defined"}
+  return key_table[17]; // message "Not defined"
+}
 
 ///////////////////////////////////
 /*  Clear values from joystick   */
@@ -1724,7 +1725,8 @@ void draw_game()
   dest.x=dest.x+1;
   dest.w=14;
   if(battery_level<=100)
-    dest.h=battery_level*39/100;  else
+    dest.h=battery_level*39/100;
+  else
     dest.h=39;
   dest.y=dest.y+43-dest.h; // capacity rectangle is 38 pixels high
 
