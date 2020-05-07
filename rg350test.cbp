@@ -26,7 +26,6 @@
 					<Add option="-DPLATFORM_LINUX" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add option="-lSDL_mixer -lSDL_ttf -lSDL_image -lfreetype -lvorbisidec -lz -lSDL -lpthread -lshake" />
 				</Linker>
 			</Target>

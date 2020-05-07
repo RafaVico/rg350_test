@@ -1,8 +1,8 @@
 ifeq ($(PLATFORM), gcw0)
   CC         := /opt/gcw0-toolchain/usr/bin/mipsel-linux-g++
   STRIP      := /opt/gcw0-toolchain/usr/bin/mipsel-linux-strip
-  LIBS       := -L../libShake-0.2.0/release/gcwzero -L/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/lib
-  INCS	     := -I/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/include -I../libShake-0.2.0/include
+  LIBS       := -L/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/lib
+  INCS	     := -I/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/include
 endif
 
 CC           ?= g++
