@@ -143,11 +143,13 @@ int mouse_active=0;
 sd_data sd_1;
 sd_data sd_2;
 pthread_t sd_th;
+char cpu_clock[20];
+int cpu_clock_value;
 
 // strings
 int view_author=FALSE;
 const char* author="(c) Rafa Vico 2019";
-const char* version="1.3d";
+const char* version="1.4";
 const char* msg[6]={
 "Press L1 + START to exit.",
 "Press L1 + X to play a sound.",
@@ -262,6 +264,9 @@ SDL_Surface *rg350_battery2;
 SDL_Surface *sdcard_0;
 SDL_Surface *sdcard_1;
 SDL_Surface *sdcard_2;
+SDL_Surface *rg350_cpu;
+SDL_Surface *speakersound_1;
+SDL_Surface *speakersound_2;
 //sonidos
 Mix_Chunk *sound_tone;
 
@@ -532,6 +537,24 @@ const char* get_keydata(int value)
   return key_table[17]; // message "Not defined"
 }
 
+void get_cpuclock()
+{
+	FILE *cpuclockinfo=NULL;
+
+	cpuclockinfo = fopen("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq", "r");
+	if(cpuclockinfo)
+	{
+		fscanf(cpuclockinfo,"%d",&cpu_clock_value);
+		cpu_clock_value=cpu_clock_value/1000;
+		fclose(cpuclockinfo);
+		sprintf(cpu_clock,"%d MHz",cpu_clock_value);
+	}
+	else
+	{
+    sprintf(cpu_clock,"???");
+	}
+}
+
 ///////////////////////////////////
 /*  Clear values from joystick   */
 /*  structure                    */
@@ -723,6 +746,9 @@ void init_game()
   load_imgalpha("media/sd0.png",sdcard_0);
   load_imgalpha("media/sd1.png",sdcard_1);
   load_imgalpha("media/sd2.png",sdcard_2);
+  load_imgalpha("media/cpu.png",rg350_cpu);
+  load_imgalpha("media/sound1.png",speakersound_1);
+  load_imgalpha("media/sound2.png",speakersound_2);
 
   // Set graphics to position
   joy1.button=rg350_stick;
@@ -848,6 +874,7 @@ void init_game()
   // battery and rumble init
   init_rumble();
   battery_level=get_batterylevel();
+  get_cpuclock();
 }
 
 ///////////////////////////////////
@@ -941,6 +968,18 @@ void end_game()
     SDL_FreeSurface(rg350_battery);
   if(rg350_battery2)
     SDL_FreeSurface(rg350_battery2);
+  if(rg350_cpu)
+    SDL_FreeSurface(rg350_cpu);
+  if(sdcard_0)
+    SDL_FreeSurface(sdcard_0);
+  if(sdcard_1)
+    SDL_FreeSurface(sdcard_1);
+  if(sdcard_2)
+    SDL_FreeSurface(sdcard_2);
+  if(speakersound_1)
+    SDL_FreeSurface(speakersound_1);
+  if(speakersound_2)
+    SDL_FreeSurface(speakersound_2);
 
   // Free sounds
   Mix_HaltChannel(-1);
@@ -1707,9 +1746,23 @@ void draw_game()
     drawLine(screen,131+pos2x,70-3+pos2y,131+pos2x,70+4+pos2y,SDL_MapRGB(screen->format,0,255,255));
   }
 
-  // battery icon
+  // cpu icon
   dest.x=rg_x+180;
-  dest.y=rg_y+20;
+  dest.y=rg_y-5;
+  if(rg350_cpu)
+    SDL_BlitSurface(rg350_cpu,NULL,screen,&dest);
+  if(cpu_clock_value>1000)
+    draw_text(screen,cpu_clock,dest.x+12-text_width(cpu_clock)/2,dest.y+23,64,192,64);
+  else if(cpu_clock_value<1000)
+    draw_text(screen,cpu_clock,dest.x+12-text_width(cpu_clock)/2,dest.y+23,192,64,64);
+  else
+    draw_text(screen,cpu_clock,dest.x+12-text_width(cpu_clock)/2,dest.y+23,255,255,255);
+
+  // battery icon
+  /*dest.x=rg_x+180;
+  dest.y=rg_y+20;*/
+  dest.x=rg_x+184;
+  dest.y=rg_y+35;
   if(rg350_battery)
     SDL_BlitSurface(rg350_battery,NULL,screen,&dest);
 
@@ -1736,8 +1789,8 @@ void draw_game()
       SDL_FillRect(screen, &dest, SDL_MapRGB(screen->format,192,64,64));  // red power
 
   // if connected to usb, draw charging battery icon
-  dest.x=rg_x+180;
-  dest.y=rg_y+20;
+  dest.x=rg_x+184;
+  dest.y=rg_y+35;
   if(battery_charging)
     if(rg350_battery2)
       SDL_BlitSurface(rg350_battery2,NULL,screen,&dest);
@@ -1804,6 +1857,36 @@ void draw_game()
       draw_text(screen,sd_2.type,197+text_width(sd_2.free_text)+text_width(sd_2.max_text),20,192,192,192);
       //draw_text(screen,sd_2.filesysname,197,30,192,192,192);  // filesystem type
       break;
+  }
+
+  // speaker sound
+  static Uint32 snd_ply=SDL_GetTicks();
+  if(Mix_Playing(-1)>0)
+  {
+    if(SDL_GetTicks()-snd_ply>250)
+    {
+      dest.x=rg_x+15;
+      dest.y=rg_y+78;
+      if(speakersound_2)
+        SDL_BlitSurface(speakersound_2,NULL,screen,&dest);
+      dest.x=rg_x+113;
+      dest.y=rg_y+78;
+      if(speakersound_2)
+        SDL_BlitSurface(speakersound_2,NULL,screen,&dest);
+      if(SDL_GetTicks()-snd_ply>500)
+        snd_ply=SDL_GetTicks();
+    }
+    else
+    {
+      dest.x=rg_x+15;
+      dest.y=rg_y+78;
+      if(speakersound_1)
+        SDL_BlitSurface(speakersound_1,NULL,screen,&dest);
+      dest.x=rg_x+113;
+      dest.y=rg_y+78;
+      if(speakersound_1)
+        SDL_BlitSurface(speakersound_1,NULL,screen,&dest);
+    }
   }
 
   /*
@@ -1905,12 +1988,13 @@ void update_game()
     if(mainjoystick.j2_left<-GCW_JOYSTICK_DEADZONE || mainjoystick.j2_right>GCW_JOYSTICK_DEADZONE || mainjoystick.j2_down>GCW_JOYSTICK_DEADZONE || mainjoystick.j2_up<-GCW_JOYSTICK_DEADZONE)
         joy2.moved_time=SDL_GetTicks();
 
-    // read battery every 2 seconds. Read it very fast can produce errors
+    // read battery and cpu every 2 seconds. Read it very fast can produce errors
     if(SDL_GetTicks()-battery_checktime>2000)
     {
         battery_charging=is_batterycharging();
         battery_level=get_batterylevel();
         battery_checktime=SDL_GetTicks();
+        get_cpuclock();
     }
 }
 
@@ -1954,6 +2038,7 @@ int main(int argc, char *argv[])
 	pthread_cancel(sd_th);
 	pthread_join(sd_th, NULL);
   end_game();
+  SDL_Quit();
 
   return 1;
 }
