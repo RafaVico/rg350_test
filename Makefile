@@ -1,9 +1,7 @@
-ifeq ($(PLATFORM), gcw0)
   CC         := /opt/gcw0-toolchain/usr/bin/mipsel-linux-g++
   STRIP      := /opt/gcw0-toolchain/usr/bin/mipsel-linux-strip
   LIBS       := -L/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/lib
   INCS	     := -I/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/include
-endif
 
 CC           ?= g++
 STRIP        ?= strip
@@ -33,7 +31,7 @@ ifdef DO_STRIP
 endif
 
 $(OBJ): $(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
-	$(CC) -c $< -o $@ $(INCS)
+	$(CC) -c $< -o $@ $(INCS) -DPLATFORM_LINUX
 
 $(OBJDIR):
 	mkdir -p $@
